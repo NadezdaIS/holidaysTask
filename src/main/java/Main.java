@@ -41,34 +41,39 @@ public class Main {
         holidaysLT.add(new Holiday(LocalDate.of(Year.now().getValue(), Month.DECEMBER, 25), "Christmas Day"));
         holidaysLT.add(new Holiday(LocalDate.of(Year.now().getValue(), Month.DECEMBER, 26), "Second Day of Christmas"));
 
-        System.out.println("Please enter the country:");
+        System.out.println("Please enter the country (Latvia or Lithuania):");
         Scanner scanner = new Scanner(System.in);
         String choiceOfCountry = scanner.nextLine().toLowerCase().trim();
         System.out.println("Please choose the month");
         String choiceMonth = scanner.nextLine();
         Month month = Month.valueOf(choiceMonth.toUpperCase());
-
+        ArrayList<Holiday> chosenHoliday = new ArrayList<>();
         if (choiceOfCountry.equals("latvia")) {
-            ArrayList<Holiday> chosenHoliday = new ArrayList<>();
             for (Holiday currentHoliday : holidaysLV) {
                 if (currentHoliday.getDate().getMonth() == month) {
                     chosenHoliday.add(currentHoliday);
                 }
             }
-            System.out.println(chosenHoliday);
-
-        } else if (choiceOfCountry.equals("lithuania")) {
-            ArrayList<Holiday> chosenHoliday = new ArrayList<>();
-            for (Holiday currentHoliday : holidaysLT) {
-                if (currentHoliday.getDate().getMonth() == month) {
-                    chosenHoliday.add(currentHoliday);
-                }
+            if (chosenHoliday.size() < 1) {
+                System.out.println("No holidays in chosen month in Latvia!");
+            } else {
+                System.out.println(chosenHoliday);
             }
-            System.out.println(chosenHoliday);
 
-        } else {
-            System.out.println("Wrong country entered, choose between Latvia and Lithuania!");
+            } else if (choiceOfCountry.equals("lithuania")) {
+                for (Holiday currentHoliday : holidaysLT) {
+                    if (currentHoliday.getDate().getMonth() == month) {
+                        chosenHoliday.add(currentHoliday);
+                    }
+                }
+                if (chosenHoliday.size() < 1) {
+                    System.out.println("No holidays in chosen month in Lithuania!");
+                } else
+                    System.out.println(chosenHoliday);
+            } else {
+                System.out.println("Wrong country entered, choose between Latvia and Lithuania!");
+            }
         }
 
     }
-}
+
